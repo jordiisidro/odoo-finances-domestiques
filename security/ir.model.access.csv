@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_financesdomestiques_grupmoviment,financesdomestiques.grupmoviment,model_financesdomestiques_grupmoviment,,1,1,1,1
+access_financesdomestiques_formapagament,financesdomestiques.formapagament,model_financesdomestiques_formapagament,,1,1,1,1
+access_financesdomestiques_caixa,financesdomestiques.caixa,model_financesdomestiques_caixa,,1,1,1,1
+access_financesdomestiques_subgrupmoviment,financesdomestiques.subgrupmoviment,model_financesdomestiques_subgrupmoviment,,1,1,1,1
+access_financesdomestiques_detallmoviment,financesdomestiques.detallmoviment,model_financesdomestiques_detallmoviment,,1,1,1,1
+access_financesdomestiques_moviment,financesdomestiques.moviment,model_financesdomestiques_moviment,,1,1,1,1

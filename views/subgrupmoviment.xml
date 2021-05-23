@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- llista de subgrupsmoviment -->
+    <record id="subgrupmoviment_tree" model="ir.ui.view">
+        <field name="name">financesdomestiques.subgrupsmoviment.tree</field>
+        <field name="model">financesdomestiques.subgrupmoviment</field>
+        <field name="arch" type="xml">
+            <tree string="subgrupsmoviment">
+                <field name="name_seq"/>
+                <field name="id_grupmoviment"/>
+                <field name="subgrupmoviment"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- formulari subgrupsmoviment -->
+    <record id="subgrupmoviment_form" model="ir.ui.view">
+        <field name="name">financesdomestiques.subgrupsmoviment.form</field>
+        <field name="model">financesdomestiques.subgrupmoviment</field>
+        <field name="arch" type="xml">
+            <form string="subgrupsmoviment">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name_seq" readonly="1"/>
+                    </h1>
+                </div>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id_grupmoviment"/>
+                            <field name="subgrupmoviment"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!--search view for the subgrup moviment-->
+    <record id="financesdomestiques_subgrupmoviment_search" model="ir.ui.view">
+        <field name="name">financesdomestiques.subgrupmoviment.search</field>
+        <field name="model">financesdomestiques.subgrupmoviment</field>
+        <field name="arch" type="xml">
+            <search string="Buscar subgrups de moviment">
+                <field name="subgrupmoviment"
+                       filter_domain="['|','|',('id_grupmoviment', 'ilike', self),('subgrupmoviment', 'ilike', self),('name_seq', 'ilike', self)]"/>
+                <field name="name_seq"/>
+                <field name="id_grupmoviment"/>
+                <field name="subgrupmoviment"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Grup moviment" name="grupmoviment" context="{'group_by':'id_grupmoviment'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_subgrupmoviment" model="ir.actions.act_window">
+        <field name="name">subgrup moviment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">financesdomestiques.subgrupmoviment</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_ncontent_smiling_face">
+                Crear nou subgrup de moviment
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="financesdomestiques_root" name="Finances Domèstiques" sequence="1"></menuitem>
+    <menuitem id="financesdomestiques_subgrupmoviment" name="Subgrup moviment" parent="financesdomestiques_root"
+              action="action_subgrupmoviment" sequence="2"></menuitem>
+</odoo>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <!-- llista de grupsmoviment -->
+    <record id="formapagament_tree" model="ir.ui.view">
+        <field name="name">financesdomestiques.formespagament.tree</field>
+        <field name="model">financesdomestiques.formapagament</field>
+        <field name="arch" type="xml">
+            <tree string="formespagament">
+                <field name="name_seq" />
+                <field name="formapagament"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- formulari grupsmoviment -->
+    <record id="formapagament_form" model="ir.ui.view">
+        <field name="name">financesdomestiques.formespagament.form</field>
+        <field name="model">financesdomestiques.formapagament</field>
+        <field name="arch" type="xml">
+            <form string="formespagament">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name_seq" readonly="1"/>
+                    </h1>
+                </div>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="formapagament"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!--search view for the patient-->
+    <record id="financesdomestiques_formapagament_search" model="ir.ui.view">
+        <field name="name">financesdomestiques.formapagament.search</field>
+        <field name="model">financesdomestiques.formapagament</field>
+        <field name="arch" type="xml">
+            <search string="Buscar grups de moviment">
+                <field name="formapagament" filter_domain="['|',('formapagament', 'ilike', self),('name_seq', 'ilike', self)]"/>
+                <field name="name_seq"/>
+                <field name="formapagament"/>
+                <separator />
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_formapagament" model="ir.actions.act_window">
+        <field name="name">Forma de pagament</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">financesdomestiques.formapagament</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_ncontent_smiling_face">
+                Crear nova forma de pagament
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="financesdomestiques_root" name="Finances Domèstiques" sequence="1"></menuitem>
+    <menuitem id="financesdomestiques_formapagament" name="Forma de pagament" parent="financesdomestiques_root" action="action_formapagament" sequence="4"></menuitem>
+</odoo>

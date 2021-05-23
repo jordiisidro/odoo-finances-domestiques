@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- llista de moviments -->
+    <record id="moviment_tree" model="ir.ui.view" >
+        <field name="name">financesdomestiques.moviments.tree</field>
+        <field name="model">financesdomestiques.moviment</field>
+        <field name="arch" type="xml">
+            <tree string="moviments" decoration-danger="importmoviment &lt; 0" decoration-success="importmoviment &gt;= 0">
+                <field name="name_seq"/>
+                <field name="datamoviment"/>
+                <field name="grupmoviment"/>
+                <field name="subgrupmoviment"/>
+                <field name="detallmoviment"/>
+                <field name="id_caixa" />
+                <field name="id_formapagament" />
+                <field name="importmoviment"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <!-- formulari moviments -->
+    <record id="moviment_form" model="ir.ui.view">
+        <field name="name">financesdomestiques.moviments.form</field>
+        <field name="model">financesdomestiques.moviment</field>
+        <field name="arch" type="xml">
+            <form string="moviments">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name_seq" readonly="1"/>
+                    </h1>
+                </div>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id_detallmoviment"/>
+                            <field name="id_caixa" />
+                            <field name="id_formapagament" />
+                        </group>
+                        <group>
+                            <field name="datamoviment"/>
+                            <field name="importmoviment"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="moviment_calendar" model="ir.ui.view">
+        <field name="name">financesdomestiques.moviment.calendar</field>
+        <field name="model">financesdomestiques.moviment</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendari de Moviments" date_start="datamoviment" color="grupmoviment" mode="month" quick_add="False">
+                <field name="id_detallmoviment"></field>
+                <field name="importmoviment"></field>
+            </calendar>
+        </field>
+    </record>
+
+    <!--search view for the moviment-->
+    <record id="financesdomestiques_moviment_search" model="ir.ui.view">
+        <field name="name">financesdomestiques.moviment.search</field>
+        <field name="model">financesdomestiques.moviment</field>
+        <field name="arch" type="xml">
+            <search string="Buscar moviments">
+                <field name="name_seq"
+                       filter_domain="['|','|','|','|','|','|','|',('datamoviment', 'ilike', self),('importmoviment', 'ilike', self),('grupmoviment', 'ilike', self),('subgrupmoviment', 'ilike', self),('detallmoviment', 'ilike', self),('id_caixa', 'ilike', self),('id_formapagament', 'ilike', self),('name_seq', 'ilike', self)]"/>
+                <field name="name_seq"/>
+                <field name="detallmoviment"/>
+                <field name="subgrupmoviment"/>
+                <field name="grupmoviment"/>
+                <field name="id_caixa"/>
+                <field name="id_formapagament"/>
+                <field name="datamoviment"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Data moviment" name="datamoviment" context="{'group_by':'datamoviment'}"/>
+                    <filter string="Grup moviment" name="grupmoviment" context="{'group_by':'grupmoviment'}"/>
+                    <filter string="Subgrup moviment" name="subgrupmoviment" context="{'group_by':'subgrupmoviment'}"/>
+                    <filter string="Caixa" name="id_caixa" context="{'group_by':'id_caixa'}"/>
+                    <filter string="Forma pagament" name="id_formapagament" context="{'group_by':'id_formapagament'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_moviment" model="ir.actions.act_window">
+        <field name="name">Moviment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">financesdomestiques.moviment</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="help" type="html">
+            <p class="o_view_ncontent_smiling_face">
+                Crear nou moviment
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="financesdomestiques_root" name="Finances Domèstiques" sequence="1"></menuitem>
+    <menuitem id="financesdomestiques_moviment" name="Moviment" parent="financesdomestiques_root"
+              action="action_moviment" sequence="6"></menuitem>
+</odoo>
